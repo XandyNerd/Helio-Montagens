@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Agendamentos</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #f4f4f9;
+        }
+
+        .dashboard-container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logout-btn {
+            background: #e74c3c;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .agendamento-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            color: #333;
+        }
+
+        .card-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .card-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .info-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .info-item strong {
+            display: block;
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        .info-item span {
+            color: #333;
+        }
+
+        .card-footer {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+            text-align: right;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .photos-preview {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .photo-thumb {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 1px solid #ddd;
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Agendamentos</h1>
+            <a href="#" id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Sair</a>
+        </div>
+
+        <div id="loading" style="text-align: center;">Carregando...</div>
+        <div id="agendamentosList"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadAgendamentos);
+        document.getElementById('logoutBtn').addEventListener('click', logout);
+
+        async function loadAgendamentos() {
+            try {
+                const response = await fetch('/api/agendamentos');
+                if (response.status === 401) {
+                    window.location.href = 'login.html';
+                    return;
+                }
+                const data = await response.json();
+
+                const list = document.getElementById('agendamentosList');
+                document.getElementById('loading').style.display = 'none';
+
+                if (data.length === 0) {
+                    list.innerHTML = '<p style="text-align:center">Nenhum agendamento encontrado.</p>';
+                    return;
+                }
+
+                list.innerHTML = data.map(item => {
+                    const dateObj = new Date(item.data_agendamento + 'T00:00:00');
+                    const dateFormatted = dateObj.toLocaleDateString('pt-BR');
+
+                    let photosHtml = '';
+                    if (item.fotos && item.fotos.length > 0) {
+                        photosHtml = '<div class="info-item"><strong>Fotos:</strong><div class="photos-preview">';
+                        item.fotos.forEach(photo => {
+                            photosHtml += `<a href="${photo}" target="_blank"><img src="${photo}" class="photo-thumb"></a>`;
+                        });
+                        photosHtml += '</div></div>';
+                    }
+
+                    return `
+                        <div class="agendamento-card">
+                            <div class="card-header">
+                                <h3>${item.nome_cliente}</h3>
+                                <span class="card-date"><i class="far fa-calendar-alt"></i> ${dateFormatted} às ${item.horario_agendamento}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="info-item">
+                                    <strong>Telefone:</strong>
+                                    <span>${item.telefone}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Endereço:</strong>
+                                    <span>${item.endereco} ${item.bairro ? '- ' + item.bairro : ''}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Serviço:</strong>
+                                    <span>${item.tipo_servico}</span>
+                                </div>
+                                <div class="info-item">
+                                    <strong>Móvel:</strong>
+                                    <span>${item.tipo_movel}</span>
+                                </div>
+                                ${item.medidas ? `<div class="info-item"><strong>Medidas:</strong><span>${item.medidas}</span></div>` : ''}
+                                ${photosHtml}
+                                ${item.observacoes ? `<div class="info-item" style="grid-column: 1/-1"><strong>Observações:</strong><span>${item.observacoes}</span></div>` : ''}
+                            </div>
+                            <div class="card-footer">
+                                <a href="https://wa.me/55${item.telefone.replace(/\D/g, '')}" target="_blank" class="btn-whatsapp">
+                                    <i class="fab fa-whatsapp"></i> Contatar Cliente
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loading').textContent = 'Erro ao carregar agendamentos.';
+            }
+        }
+
+        async function logout(e) {
+            e.preventDefault();
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>

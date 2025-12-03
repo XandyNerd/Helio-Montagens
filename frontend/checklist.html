@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Checklist para orçamento de montagem de móveis. Preencha rápido e receba seu orçamento no WhatsApp.">
+    <title>Checklist de Orçamento | Hélio Montagens</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checklist.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Header (Reused) -->
+    <header class="main-header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="index.html"><strong>Hélio</strong> Montagens</a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-links">
+                    <li><a href="index.html#hero">Início</a></li>
+                    <li><a href="index.html#services">Serviços</a></li>
+                    <li><a href="index.html#portfolio">Portfólio</a></li>
+                    <li><a href="index.html#contact">Contato</a></li>
+                </ul>
+            </nav>
+            <a href="index.html" class="btn btn-secondary header-btn"><i class="fas fa-arrow-left"></i> Voltar</a>
+        </div>
+    </header>
+
+    <section class="checklist-section section-padding">
+        <div class="container">
+            <div class="checklist-header text-center">
+                <h1 class="section-title">Solicitar Orçamento</h1>
+                <p class="section-subtitle">Preencha o checklist abaixo para agilizar seu atendimento.</p>
+            </div>
+
+            <form id="checklistForm" class="checklist-form">
+
+                <!-- 1. Dados Básicos -->
+                <div class="form-step active" id="step1">
+                    <h3><i class="fas fa-user"></i> Seus Dados</h3>
+                    <div class="form-group">
+                        <label for="nome">Nome Completo</label>
+                        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefone">Telefone / WhatsApp</label>
+                        <input type="tel" id="telefone" name="telefone" placeholder="(00) 00000-0000" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endereco">Bairro e Endereço</label>
+                        <input type="text" id="endereco" name="endereco" placeholder="Ex: Centro, Rua X" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="data">Data Desejada</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hora">Horário</label>
+                            <input type="time" id="hora" name="hora" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Tipo de Serviço -->
+                <div class="form-step" id="step2">
+                    <h3><i class="fas fa-tools"></i> Tipo de Serviço</h3>
+                    <div class="options-grid">
+                        <label class="option-card">
+                            <input type="radio" name="servico" value="Montagem" required>
+                            <div class="card-content">
+                                <i class="fas fa-screwdriver"></i>
+                                <span>Montagem</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="servico" value="Desmontagem">
+                            <div class="card-content">
+                                <i class="fas fa-hammer"></i>
+                                <span>Desmontagem</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="servico" value="Montagem + Desmontagem">
+                            <div class="card-content">
+                                <i class="fas fa-sync-alt"></i>
+                                <span>Montagem + Desmontagem</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="servico" value="Instalação">
+                            <div class="card-content">
+                                <i class="fas fa-tv"></i>
+                                <span>Instalação (TV, Nichos)</span>
+                            </div>
+                        </label>
+                        <label class="option-card">
+                            <input type="radio" name="servico" value="Outro">
+                            <div class="card-content">
+                                <i class="fas fa-question-circle"></i>
+                                <span>Outro</span>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="form-group hidden" id="outroServicoGroup">
+                        <label for="outroServicoDesc">Descreva o serviço:</label>
+                        <input type="text" id="outroServicoDesc" placeholder="Ex: Reparo de porta">
+                    </div>
+                </div>
+
+                <!-- 3. Tipo de Móvel -->
+                <div class="form-step" id="step3">
+                    <h3><i class="fas fa-couch"></i> Tipo de Móvel</h3>
+                    <div class="form-group">
+                        <label for="tipoMovel">Selecione o móvel:</label>
+                        <select id="tipoMovel" name="tipoMovel" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="Cama">Cama (Box/Casal/Solteiro)</option>
+                            <option value="Suporte TV">Suporte de TV</option>
+                            <option value="Mesa">Mesa / Mesa com cadeiras</option>
+                            <option value="Escrivaninha">Escrivaninha</option>
+                            <option value="Guarda-Roupa">Guarda-Roupa</option>
+                            <option value="Rack">Rack / Painel de TV</option>
+                            <option value="Cozinha">Cozinha (Completa/Aérea)</option>
+                            <option value="Outros">Outros Móveis</option>
+                        </select>
+                    </div>
+
+                    <!-- Campos Dinâmicos -->
+                    <div id="dynamicFields">
+                        <!-- Medidas -->
+                        <div class="form-group hidden" id="medidasGroup">
+                            <label for="medidas">Medidas (Altura x Largura) <span id="medidasObrigratorio"
+                                    class="text-danger">*</span></label>
+                            <input type="text" id="medidas" placeholder="Ex: 2.20m x 1.80m">
+                            <small class="form-text text-muted">Se não souber, envie uma foto.</small>
+                        </div>
+
+                        <!-- Descrição Outros -->
+                        <div class="form-group hidden" id="descMovelGroup">
+                            <label for="descMovel">Descrição do Móvel</label>
+                            <input type="text" id="descMovel" placeholder="Ex: Cômoda de 4 gavetas">
+                        </div>
+
+                        <!-- Fotos -->
+                        <div class="form-group hidden" id="fotosGroup">
+                            <label>Fotos (Opcional mas recomendado)</label>
+                            <div class="file-upload-wrapper">
+                                <label class="file-upload-btn">
+                                    <input type="file" id="fotoMovel" accept="image/*" multiple>
+                                    <i class="fas fa-camera"></i> Tenho fotos para enviar
+                                </label>
+                                <span id="fileChosen">Nenhuma foto selecionada</span>
+                            </div>
+                            <small class="form-text">As fotos serão solicitadas no WhatsApp.</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Observações -->
+                <div class="form-step" id="step4">
+                    <h3><i class="fas fa-comment-alt"></i> Observações</h3>
+                    <div class="form-group">
+                        <textarea id="observacoes" rows="3"
+                            placeholder="Alguma observação importante? (Ex: Apartamento sem elevador, 3º andar)"></textarea>
+                    </div>
+
+                    <button type="button" id="btnGerarZap" class="btn btn-primary btn-block pulse">
+                        <i class="fab fa-whatsapp"></i> Enviar para WhatsApp
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2024 Hélio Montagens. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="checklist.js"></script>
+</body>
+
+</html>

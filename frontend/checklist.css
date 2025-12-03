@@ -1,0 +1,213 @@
+    /* Checklist Page Styles */
+
+    .checklist-section {
+        background-color: #f8f9fa;
+        min-height: 100vh;
+    }
+
+    .checklist-header {
+        margin-bottom: 40px;
+    }
+
+    .checklist-form {
+        background: #fff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .form-step {
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .form-step:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .form-step h3 {
+        color: var(--primary-color);
+        margin-bottom: 20px;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-row {
+        display: flex;
+        gap: 20px;
+    }
+
+    .form-row .form-group {
+        flex: 1;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark-color);
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-family: var(--font-main);
+        font-size: 1rem;
+        transition: var(--transition);
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+        border-color: var(--primary-color);
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.1);
+    }
+
+    /* Service Options Grid */
+    .options-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .option-card {
+        cursor: pointer;
+        position: relative;
+    }
+
+    .option-card input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 15px;
+        transition: var(--transition);
+        height: 100%;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .card-content i {
+        font-size: 2rem;
+        color: var(--gray-color);
+        transition: var(--transition);
+    }
+
+    .card-content span {
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    /* Checked State */
+    .option-card input:checked+.card-content {
+        border-color: var(--primary-color);
+        background-color: rgba(0, 86, 179, 0.05);
+    }
+
+    .option-card input:checked+.card-content i {
+        color: var(--primary-color);
+    }
+
+    .option-card:hover .card-content {
+        border-color: var(--primary-color);
+    }
+
+    /* Center the last item (Outro) */
+    .option-card:last-child {
+        grid-column: 1 / -1;
+        width: 100%;
+        max-width: 300px;
+        justify-self: center;
+    }
+
+    /* Utilities */
+    .hidden {
+        display: none;
+    }
+
+    .text-danger {
+        color: #dc3545;
+    }
+
+    .form-text {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .btn-block {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* File Upload Styling */
+    .file-upload-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .file-upload-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background-color: #e9ecef;
+        color: var(--dark-color);
+        border-radius: 50px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+
+    .file-upload-btn:hover {
+        background-color: #dde0e3;
+    }
+
+    .file-upload-btn input {
+        display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .checklist-form {
+            padding: 20px;
+        }
+
+        .form-row {
+            flex-direction: column;
+            gap: 0;
+        }
+    }
